@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/colors.dart';
+
 void main() {
   runApp(const GameProgressApp());
 }
@@ -10,11 +12,40 @@ class GameProgressApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Game Progress',
+      title: 'Game Tracker',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        scaffoldBackgroundColor: kTrackerBackground,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: kTrackerPrimaryIndigo,
+          brightness: Brightness.dark, // Forces the dark theme context
+          primary: kTrackerPrimaryIndigo,
+          surface: kTrackerSurface,
+          onSurface: kTrackerTextPrimary,
+          onSurfaceVariant: kTrackerTextSecondary,
+          tertiary: kTrackerProgressFill,
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: kTrackerPrimaryIndigo,
+          linearTrackColor: kTrackerSurface,
+          linearMinHeight: 8.0,
+        ),
+        cardTheme: const CardThemeData(
+          color: kTrackerSurface,
+          elevation: 0,
+          margin: EdgeInsets.only(bottom: 12.0),
+        ),
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            color: kTrackerTextPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+          titleMedium: TextStyle(
+            color: kTrackerTextPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyMedium: TextStyle(color: kTrackerTextSecondary),
+        ),
       ),
       home: const GameProgressScreen(),
     );
