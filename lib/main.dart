@@ -1,7 +1,3 @@
-// =============================================================================
-// Game Tracker integrated with LabHarness for Week 4
-// =============================================================================
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +5,6 @@ import '../theme/colors.dart';
 
 void main() => runApp(const LabHarness());
 
-// -----------------------------------------------------------------------------
-// Models and Testing Data
-// -----------------------------------------------------------------------------
 class GameProgress {
   const GameProgress({
     required this.title,
@@ -81,9 +74,6 @@ final List<GameProgress> kBigGames = List.generate(
   ),
 );
 
-// -----------------------------------------------------------------------------
-// The App & Screen
-// -----------------------------------------------------------------------------
 class GameProgressApp extends StatelessWidget {
   const GameProgressApp({
     super.key,
@@ -416,9 +406,6 @@ class ProgressSummary extends StatelessWidget {
   }
 }
 
-// =============================================================================
-// LAB HARNESS (Copied from lab04_start.dart)
-// =============================================================================
 
 enum _Device {
   small('Small phone', Size(320, 568)),
@@ -469,7 +456,7 @@ class _LabHarnessState extends State<LabHarness> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lab 04 · device harness',
+      title: 'Device Harness',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -512,7 +499,7 @@ class _LabHarnessState extends State<LabHarness> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text('Lab 04 · device harness', style: text.titleMedium),
+        Text('Device Harness', style: text.titleMedium),
         const SizedBox(height: 4),
         Text('Try every combination.', style: text.bodySmall),
         const SizedBox(height: 20),
