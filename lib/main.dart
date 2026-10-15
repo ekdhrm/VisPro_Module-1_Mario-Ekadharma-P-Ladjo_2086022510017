@@ -1,3 +1,7 @@
+// =============================================================================
+// Game Tracker integrated with LabHarness for Week 4
+// =============================================================================
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +9,9 @@ import '../theme/colors.dart';
 
 void main() => runApp(const LabHarness());
 
+// -----------------------------------------------------------------------------
+// Models and Testing Data
+// -----------------------------------------------------------------------------
 class GameProgress {
   const GameProgress({
     required this.title,
@@ -74,6 +81,9 @@ final List<GameProgress> kBigGames = List.generate(
   ),
 );
 
+// -----------------------------------------------------------------------------
+// The App & Screen
+// -----------------------------------------------------------------------------
 class GameProgressApp extends StatelessWidget {
   const GameProgressApp({
     super.key,
@@ -90,6 +100,7 @@ class GameProgressApp extends StatelessWidget {
       title: 'Game Tracker',
       debugShowCheckedModeBanner: false,
       themeMode: themeMode,
+      // Provide a light theme to test the Dark Mode toggle
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -181,6 +192,7 @@ class _GameProgressScreenState extends State<GameProgressScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Game Progress')),
+      // The body uses a CustomScrollView instead of Column/Expanded to naturally avoid the keyboard
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -297,6 +309,7 @@ class _GameProgressScreenState extends State<GameProgressScreen> {
           },
         ),
       ),
+      // Moved the summary card to bottomNavigationBar so it acts like the CartBar and handles resizing
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -323,17 +336,7 @@ class ProgressHeader extends StatelessWidget {
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 4),
-
-        // =========================================================
-        // ERROR 1: Row with unbounded long text (Right overflow)
-        // =========================================================
-        Row(
-          children: [
-            Text(
-              'Keep track of where you left off. But wait, this sentence is intentionally way too long for a single screen and will definitely overflow horizontally.',
-            ),
-          ],
-        ),
+        Text('Keep track of where you left off.'),
       ],
     );
   }
@@ -356,33 +359,28 @@ class GameCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: SizedBox(
-            height: 40,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  game.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: text.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  game.currentProgress,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 12),
-                LinearProgressIndicator(value: game.progress),
-                const SizedBox(height: 6),
-                Text(
-                  '${game.completedObjectives} / ${game.totalObjectives} objectives',
-                ),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                game.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: text.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                game.currentProgress,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 12),
+              LinearProgressIndicator(value: game.progress),
+              const SizedBox(height: 6),
+              Text(
+                '${game.completedObjectives} / ${game.totalObjectives} objectives',
+              ),
+            ],
           ),
         ),
       ),
@@ -406,20 +404,21 @@ class ProgressSummary extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: SizedBox(
-          width: 120,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('$gameCount games'),
-              Text('$objectiveCount objectives'),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('$gameCount games'),
+            Text('$objectiveCount objectives'),
+          ],
         ),
       ),
     );
   }
 }
+
+// =============================================================================
+// LAB HARNESS (Copied from lab04_start.dart)
+// =============================================================================
 
 enum _Device {
   small('Small phone', Size(320, 568)),
@@ -470,7 +469,7 @@ class _LabHarnessState extends State<LabHarness> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Homework-4 · device harness',
+      title: 'Lab 04 · device harness',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -513,7 +512,7 @@ class _LabHarnessState extends State<LabHarness> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text('Homework-4 · device harness', style: text.titleMedium),
+        Text('Lab 04 · device harness', style: text.titleMedium),
         const SizedBox(height: 4),
         Text('Try every combination.', style: text.bodySmall),
         const SizedBox(height: 20),
